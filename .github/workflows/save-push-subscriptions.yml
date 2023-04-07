@@ -11,15 +11,9 @@ jobs:
     steps:
       - run: 'curl https://raw.githubusercontent.com/klovaaxel/digital-signage-fork/main/clients/push-subscriptions.bin > data.bin'
       - run: 'openssl aes-256-cbc -d -a -salt -pass pass:${{ secrets.ENCRYPTION_KEY }} < data.bin > decrypted.bin'
-
       - run: 'mkdir fetch-api-data-action ; touch push-subscriptions.bin'
-      - run: '(cat decrypted.bin ; echo "test") | openssl aes-256-cbc -a -pass pass:${{ secrets.ENCRYPTION_KEY }} > fetch-api-data-action/push-subscriptions.bin'
+      - run: '(cat decrypted.bin ; echo "${{ toJson(github.event.client_payload) }}") | openssl aes-256-cbc -a -pass pass:${{ secrets.ENCRYPTION_KEY }} > fetch-api-data-action/push-subscriptions.bin'
       - run: 'rm data.bin ; rm decrypted.bin'
-
-
-
-      # - run: 'openssl pkeyutl -inkey key.txt -decrypt < data.bin > data.bin' # Decrypt data.bin
-      # - run: '(cat data.bin | openssl pkeyutl -inkey key.txt -encrypt) > fetch-api-data-action/push-subscriptions.bin' # Encrypt data.json to push-subscriptions.bin 
 
       - name: Build and Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@releases/v3
