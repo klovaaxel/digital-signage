@@ -12,12 +12,9 @@ jobs:
           endpoint: https://raw.githubusercontent.com/klovaaxel/digital-signage-fork/main/clients/push-subscriptions.bin
           configuration: '{ "method": "GET" }'
     
-      - run: 'ls'
-      - run: 'cd fetch-api-data-action' # Navigate to data.json parent folder
-      - run: 'ls'
-      # - run: 'openssl pkeyutl -inkey key.txt -decrypt < data.json > data.json' # Decrypt data.json
-      # - run: '(cat data.json ; echo "test") | > data.json'
-      - run: 'mv data.json push-subscriptions.bin'
+      # - run: 'openssl pkeyutl -inkey key.txt -decrypt < fetch-api-data-action/data.json > fetch-api-data-action/data.json' # Decrypt data.json
+      # - run: '(cat fetch-api-data-action/data.json ; echo "test") | > fetch-api-data-action/data.json'
+      - run: 'mv fetch-api-data-action/data.json fetch-api-data-action/push-subscriptions.bin'
 
       - name: Build and Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@releases/v3
