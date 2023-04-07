@@ -1,6 +1,7 @@
 name: Save push subscriptions 📫
 on:
   workflow_dispatch:
+  repository_dispatch:
 
 env: # Or as an environment variable
     ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
