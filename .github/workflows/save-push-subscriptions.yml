@@ -11,12 +11,11 @@ jobs:
     steps:
       - run: |
           curl https://raw.githubusercontent.com/klovaaxel/digital-signage-fork/main/clients/push-subscriptions.bin > data.bin
-          printf -- "$ENCRYPTION_KEY" > key.txt
           (cat data.bin ; echo "test") > data.bin
           cat data.bin
           mkdir fetch-api-data-action ; touch push-subscriptions.bin
           cat data.bin | openssl aes-256-cbc -d -a -pass pass:${{ secrets.ENCRYPTION_KEY }} > data.bin
-          rm key.txt ; rm data.bin
+          rm data.bin
 
       # - run: 'openssl aes-256-cbc -a -salt -pass pass:${{ secrets.ENCRYPTION_KEY }} < data.bin > data.bin' # Decrypt data.bin
 
