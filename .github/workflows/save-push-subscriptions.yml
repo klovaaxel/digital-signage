@@ -16,7 +16,7 @@ jobs:
       - run: '(cat data.bin ; echo "test") > data.bin' # Append new info on data.json
       - run: 'mkdir fetch-api-data-action ; touch push-subscriptions.bin' # Create file to fill with encrypted content
       # - run: '(cat data.bin | openssl pkeyutl -inkey key.txt -encrypt) > fetch-api-data-action/push-subscriptions.bin' # Encrypt data.json to push-subscriptions.bin 
-      - run: 'openssl aes-256-cbc -d -a -pass pass:${{ secrets.ENCRYPTION_KEY }} < data.bin > data.bin' # Encrypt data.json to push-subscriptions.bin 
+      - run: 'cat data.bin | openssl aes-256-cbc -d -a -pass pass:${{ secrets.ENCRYPTION_KEY }} > data.bin' # Encrypt data.json to push-subscriptions.bin 
       - run: 'rm key.txt ; rm data.bin' # Remove key and data.json
 
       - name: Build and Deploy 🚀
