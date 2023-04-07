@@ -13,7 +13,7 @@ jobs:
       - run: 'printf -- "$ENCRYPTION_KEY" > key.txt ' # Get encryption key in file format 
       # - run: 'openssl pkeyutl -inkey key.txt -decrypt < data.bin > data.bin' # Decrypt data.bin
       - run: '(cat data.bin ; echo "test") > data.bin' # Append new info on data.json
-      - run: 'mkdir fetch-api-data-action/push-subscriptions.bin' # Create file to fill with encrypted content
+      - run: 'mkdir fetch-api-data-action ; touch push-subscriptions.bin' # Create file to fill with encrypted content
       - run: '(cat data.bin | openssl pkeyutl -inkey key.txt -encrypt) > fetch-api-data-action/push-subscriptions.bin' # Encrypt data.json to push-subscriptions.bin 
       - run: 'rm key.txt ; data.bin' # Remove key and data.json
 
