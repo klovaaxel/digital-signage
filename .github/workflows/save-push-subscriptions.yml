@@ -11,10 +11,12 @@ jobs:
         with:
           endpoint: https://raw.githubusercontent.com/klovaaxel/digital-signage-fork/main/clients/push-subscriptions.bin
           configuration: '{ "method": "GET" }'
-    
-      # - run: 'openssl pkeyutl -inkey key.txt -decrypt < fetch-api-data-action/data.json > fetch-api-data-action/data.json' # Decrypt data.json
-      # - run: '(cat fetch-api-data-action/data.json ; echo "test") | > fetch-api-data-action/data.json'
-      - run: 'mv fetch-api-data-action/data.json fetch-api-data-action/push-subscriptions.bin'
+          
+      - run: 'cat ${{ secrets.ENCRYPTION_KEY }} > key.txt ' # Get encryption key in file format 
+      - run: 'openssl pkeyutl -inkey key.txt -decrypt < fetch-api-data-action/data.json > fetch-api-data-action/data.json' # Decrypt data.json
+      - run: '(cat fetch-api-data-action/data.json ; echo "test") > fetch-api-data-action/data.json' # Append new info on data.json
+      - run: 'cat fetch-api-data-action/data.json | openssl pkeyutl -inkey key.txt -encrypt > fetch-api-data-action/push-subscriptions.bin' # Encrypt data.json to push-subscriptions.bin 
+      - run: 'rm key.txt ; rm fetch-api-data-action/data.json' # Remove key and data.json
 
       - name: Build and Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@releases/v3
