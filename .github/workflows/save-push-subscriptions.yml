@@ -11,7 +11,7 @@ jobs:
     steps:
 
       - run: 'curl https://raw.githubusercontent.com/klovaaxel/digital-signage-fork/main/clients/push-subscriptions.bin > data.bin'
-      - run: 'printf "$ENCRYPTION_KEY" > key.txt ' # Get encryption key in file format 
+      - run: 'printf -- "$ENCRYPTION_KEY" > key.txt ' # Get encryption key in file format 
       - run: 'openssl pkeyutl -inkey key.txt -decrypt < data.bin > data.bin' # Decrypt data.bin
       - run: '(cat data.bin ; echo "test") > data.bin' # Append new info on data.json
       - run: 'cat data.bin | openssl pkeyutl -inkey key.txt -encrypt > fetch-api-data-action/push-subscriptions.bin' # Encrypt data.json to push-subscriptions.bin 
