@@ -9,16 +9,20 @@ jobs:
   refresh-feed:
     runs-on: ubuntu-latest
     steps:
-      - run: 'curl https://raw.githubusercontent.com/klovaaxel/digital-signage-fork/main/clients/push-subscriptions.bin > data.bin'
-      - run: 'printf -- "$ENCRYPTION_KEY" > key.txt ' # Get encryption key in file format 
-      # - run: 'openssl pkeyutl -inkey key.txt -decrypt < data.bin > data.bin' # Decrypt data.bin
+      - run: |
+          curl https://raw.githubusercontent.com/klovaaxel/digital-signage-fork/main/clients/push-subscriptions.bin > data.bin
+          printf -- "$ENCRYPTION_KEY" > key.txt
+          (cat data.bin ; echo "test") > data.bin
+          cat data.bin
+          mkdir fetch-api-data-action ; touch push-subscriptions.bin
+          cat data.bin | openssl aes-256-cbc -d -a -pass pass:${{ secrets.ENCRYPTION_KEY }} > data.bin
+          rm key.txt ; rm data.bin
+
       # - run: 'openssl aes-256-cbc -a -salt -pass pass:${{ secrets.ENCRYPTION_KEY }} < data.bin > data.bin' # Decrypt data.bin
-      - run: '(cat data.bin ; echo "test") > data.bin' # Append new info on data.json
-      - run: 'cat data.bin'
-      - run: 'mkdir fetch-api-data-action ; touch push-subscriptions.bin' # Create file to fill with encrypted content
+
+
+      # - run: 'openssl pkeyutl -inkey key.txt -decrypt < data.bin > data.bin' # Decrypt data.bin
       # - run: '(cat data.bin | openssl pkeyutl -inkey key.txt -encrypt) > fetch-api-data-action/push-subscriptions.bin' # Encrypt data.json to push-subscriptions.bin 
-      - run: 'cat data.bin | openssl aes-256-cbc -d -a -pass pass:${{ secrets.ENCRYPTION_KEY }} > data.bin' # Encrypt data.json to push-subscriptions.bin 
-      - run: 'rm key.txt ; rm data.bin' # Remove key and data.json
 
       - name: Build and Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@releases/v3
