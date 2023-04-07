@@ -9,6 +9,9 @@ jobs:
   refresh-feed:
     runs-on: ubuntu-latest
     steps:
+      - run: |
+          echo $DEV_ENV_FILE &gt;&gt; src/.env
+          cat src/.env
 
       - run: 'curl https://raw.githubusercontent.com/klovaaxel/digital-signage-fork/main/clients/push-subscriptions.bin > data.bin'
       - run: 'printf -- "$ENCRYPTION_KEY" > key.txt ' # Get encryption key in file format 
