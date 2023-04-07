@@ -53,7 +53,7 @@
                     .then((data) => {
                         const allDays = data.weeks[0].days;
                         const comingDays = allDays.filter((d) => new Date(d.date * 1000) >= today);
-                        const chosenDays = comingDays.slice(0, numDays);
+                        const chosenDays = comingDays.slice(0, numDays).sort((a, b) => b.date - a.date);
 
                         const foodScheduleContainer = document.getElementById("food-schedule");
 
@@ -65,7 +65,7 @@
                             }`;
 
                             const body = document.createElement("p");
-                            body.innerHTML = day.items.join("</br>");
+                            body.innerHTML = day.items.join("<br/>");
 
                             const section = document.createElement("section");
                             section.appendChild(title);

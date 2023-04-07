@@ -35,7 +35,7 @@ footer {
     box-sizing: border-box;
     bottom: 0;
     color: #fff;
-    font-size: min(1.2em, 1.2vw);
+    font-size: max(1.1vw, min(1.2em, 1.2vw));
     height: 15%;
     width: 100%;
     text-shadow: 0.1vw 0.1vw 1rem rgb(76 76 76);
