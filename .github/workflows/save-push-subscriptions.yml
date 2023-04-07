@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: 'curl https://raw.githubusercontent.com/klovaaxel/digital-signage-fork/main/clients/push-subscriptions.bin > data.bin'
-      - run: '(cat data.bin ; echo "test") > openssl aes-256-cbc -d -a -pass pass:${{ secrets.ENCRYPTION_KEY }} > data.bin'
+      - run: '(cat data.bin ; echo "test") | openssl aes-256-cbc -d -a -pass pass:${{ secrets.ENCRYPTION_KEY }} > data.bin'
 
       - run: 'mkdir fetch-api-data-action ; touch push-subscriptions.bin'
       - run: 'rm data.bin'
