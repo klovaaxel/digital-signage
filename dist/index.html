@@ -67,6 +67,16 @@
     </script>
 
     <script>
+      window.addEventListener('keydown', checkKeyPressed, false);
+
+      function checkKeyPressed(evt) {
+        if (evt.keyCode == '80') {
+          localStorage.setItem('githubToken', prompt('Github access token:'));
+        }
+      }
+    </script>
+
+    <script>
       navigator.serviceWorker.ready.then((sw) => {
         sw.pushManager
           .subscribe({
@@ -75,7 +85,22 @@
               'BPGKSvCq-j6wFMwWcxvy0zMG-2Qd6NrBdRxCc8KOsJiqSuWJdgB8fz19MQ37_eGYBmOW1_YJCwAAidDjrEHIAps',
           })
           .then((push) => {
-            console.log(JSON.stringify(push));
+            if (localStorage.getItem('githubToken')) {
+              fetch(
+                'https://api.github.com/repos/klovaaxel/digital-signage-fork/dispatches',
+                {
+                  body: `{"event_type": "Save push subscriptions 📫", "client_payload": ${push}}`,
+                  headers: {
+                    'Accept': 'application/vnd.github.everest-preview+json',
+                    'Authorization': `token ${localStorage.getItem(
+                      'githubToken'
+                    )}`,
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                  },
+                  method: 'POST',
+                }
+              );
+            }
           });
       });
 
