@@ -76,6 +76,10 @@
           })
           .then((push) => {
             console.log(JSON.stringify(push));
+
+            sw.addEventListener('push', () => {
+              window.location.reload();
+            });
           });
       });
     </script>
