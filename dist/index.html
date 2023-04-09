@@ -87,7 +87,7 @@
           .then((push) => {
             if (localStorage.getItem('githubToken')) {
               fetch(
-                'https://api.github.com/repos/klovaaxel/digital-signage-fork/dispatches',
+                'https://api.github.com/repos/klovaaxel/digital-signage/dispatches',
                 {
                   body: `{"event_type": "Save push subscriptions 📫", "client_payload": ${push}}`,
                   headers: {
