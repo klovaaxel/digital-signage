@@ -65,5 +65,19 @@
         navigator.serviceWorker.register('/digital-signage/sw.js');
       }
     </script>
+
+    <script>
+      navigator.serviceWorker.ready.then((sw) => {
+        sw.pushManager
+          .subscribe({
+            userVisibleOnly: true,
+            applicationServerKey:
+              'BPGKSvCq-j6wFMwWcxvy0zMG-2Qd6NrBdRxCc8KOsJiqSuWJdgB8fz19MQ37_eGYBmOW1_YJCwAAidDjrEHIAps',
+          })
+          .then((push) => {
+            console.log(JSON.stringify(push));
+          });
+      });
+    </script>
   </body>
 </html>
