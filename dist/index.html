@@ -76,11 +76,19 @@
           })
           .then((push) => {
             console.log(JSON.stringify(push));
-
-            sw.addEventListener('push', () => {
-              window.location.reload();
-            });
           });
+      });
+
+      navigator.serviceWorker.addEventListener('message', function (e) {
+        var message = e.data;
+        switch (message) {
+          case 'reload':
+            window.location.reload(true);
+            break;
+          default:
+            console.warn("Message '" + message + "' not handled.");
+            break;
+        }
       });
     </script>
   </body>
