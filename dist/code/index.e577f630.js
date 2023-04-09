@@ -946,7 +946,7 @@ var zr=Object.defineProperty,Vr=Object.defineProperties;var Wr=Object.getOwnProp
         src="https://avgangstavla.vasttrafik.se/?source=vasttrafikse-depatureboardlinkgenerator&stopAreaGid=9021014015050000&stopAreaGid=9021014015051000"
         frameborder="0"
       ></iframe>
-    `}};sr=In([ee("public-transport")],sr);var Fn=Object.defineProperty,Bn=Object.getOwnPropertyDescriptor,jn=(e,t,r,o)=>{for(var n=o>1?void 0:o?Bn(t,r):t,i=e.length-1,s;i>=0;i--)(s=e[i])&&(n=(o?s(t,r,n):s(n))||n);return o&&n&&Fn(t,r,n),n};const zn=22>2?"/digital-sigange-fork/".slice(1,-1):"/digital-sigange-fork/";let ar=class extends O{static get styles(){return te`
+    `}};sr=In([ee("public-transport")],sr);var Fn=Object.defineProperty,Bn=Object.getOwnPropertyDescriptor,jn=(e,t,r,o)=>{for(var n=o>1?void 0:o?Bn(t,r):t,i=e.length-1,s;i>=0;i--)(s=e[i])&&(n=(o?s(t,r,n):s(n))||n);return o&&n&&Fn(t,r,n),n};const zn=22>2?"/digital-signage-fork/".slice(1,-1):"/digital-signage-fork/";let ar=class extends O{static get styles(){return te`
       main {
         display: block;
         width: 100dvw;
@@ -954,4 +954,4 @@ var zr=Object.defineProperty,Vr=Object.defineProperties;var Wr=Object.getOwnProp
         overflow: hidden;
       }
     `}constructor(){super()}firstUpdated(){var t;new P((t=this.shadowRoot)==null?void 0:t.querySelector("#routerOutlet")).setRoutes([{path:zn,animate:!0,children:[{path:"",component:"general-information"},{path:"public-transport",component:"public-transport"}]}])}render(){return Y` <main id="routerOutlet"></main> `}};ar=jn([ee("app-index")],ar);
-//# sourceMappingURL=index.a0f7d1b1.js.map
+//# sourceMappingURL=index.e577f630.js.map
