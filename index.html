@@ -1,81 +1,67 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="refresh" content="3600" />
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>PWA Starter</title>
 
-        <title>Presentation</title>
-        <link rel="stylesheet" href="css/style.css" />
-    </head>
-    <body onload="startTime()">
-        <iframe
-            src="https://docs.google.com/presentation/d/e/2PACX-1vQbS6bGPlyTibcjsUPI1uHspUBsRSv_z_dVast1ZTcZ9Qt_GqXeHU0xWxluPZ2yCL9kftF0frYksy2h/embed?start=true&loop=true&delayms=10000&rm=minimal"
-        ></iframe>
-        <footer>
-            <img style="filter: invert()" src="resources/images/logo.svg" alt="" />
-            <section id="food-schedule" title="Food schedule"></section>
-            <section id="clock" title="Digital Clock"></section>
-        </footer>
+    <base href="/" />
 
-        <script title="Clock">
-            function startTime() {
-                const today = new Date();
-                let h = today.getHours();
-                let m = today.getMinutes();
-                let s = today.getSeconds();
-                m = checkTime(m);
-                s = checkTime(s);
-                document.getElementById("clock").innerHTML = h + ":" + m;
-                setTimeout(startTime, 1000);
-            }
+    <!-- This meta viewport ensures the webpage's dimensions change according to the device it's on. This is called Responsive Web Design.-->
+    <meta
+      name="viewport"
+      content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
+    />
+    <meta name="description" content="This is a PWA Starter app" />
 
-            function checkTime(i) {
-                if (i < 10) {
-                    i = "0" + i;
-                } // add zero in front of numbers < 10
-                return i;
-            }
-        </script>
+    <meta
+      name="theme-color"
+      media="(prefers-color-scheme: dark)"
+      content="#181818"
+    />
+    <meta
+      name="theme-color"
+      media="(prefers-color-scheme: light)"
+      content="#f3f3f3"
+    />
 
-        <script title="Food schedule">
-            AddFoodSchedule(3);
+    <!-- These meta tags are Apple-specific, and set the web application to run in full-screen mode with a black status bar. Learn more at https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html-->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="PWA Starter" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
-            var weekDays = ["Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "Söndag"];
-            const today = new Date(
-                new Date().getFullYear(),
-                new Date().getMonth(),
-                new Date().getDate()
-            ).getTime();
+    <!-- This tag is used by the PWA Starter CLI to identify template projects. Don't remove if you are using the CLI. -->
+    <meta name="pwa-starter-template-identity" content="pwa-starter" />
 
-            function AddFoodSchedule(numDays) {
-                fetch("food-schedule/data.json")
-                    .then((response) => response.json())
-                    .then((data) => {
-                        const allDays = data.weeks[0].days;
-                        const comingDays = allDays.filter((d) => new Date(d.date * 1000) >= today);
-                        const chosenDays = comingDays.slice(0, numDays).sort((a, b) => b.date - a.date);
+    <!-- Imports an icon to represent the document. -->
+    <link rel="icon" href="/assets/icons/icon_24.png" type="image/x-icon" />
 
-                        const foodScheduleContainer = document.getElementById("food-schedule");
+    <!-- Imports the manifest to represent the web application. A web app must have a manifest to be a PWA. -->
+    <link rel="manifest" href="/manifest.json" />
 
-                        for (const day of chosenDays) {
-                            const title = document.createElement("h3");
-                            const dayOfWeek = new Date(day.date * 1000).getDay();
-                            title.innerHTML = `${weekDays[dayOfWeek - 1]} - Vecka ${
-                                data.weeks[0].number
-                            }`;
+    <!-- light mode and dark mode CSS -->
+    <link
+      rel="stylesheet"
+      media="(prefers-color-scheme:light)"
+      href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.73/dist/themes/light.css"
+    />
+    <link
+      rel="stylesheet"
+      media="(prefers-color-scheme:dark)"
+      href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.73/dist/themes/dark.css"
+      onload="document.documentElement.classList.add('sl-theme-dark');"
+    />
 
-                            const body = document.createElement("p");
-                            body.innerHTML = day.items.join("<br/>");
+    <script type="module" src="/src/app-index.ts"></script>
+  </head>
 
-                            const section = document.createElement("section");
-                            section.appendChild(title);
-                            section.appendChild(body);
+  <body>
+    <!-- Our app-index web component. This component is defined in src/pages/app-index.ts-->
+    <app-index></app-index>
 
-                            foodScheduleContainer.prepend(section.cloneNode(true));
-                        }
-                    })
-                    .catch(console.error);
-            }
-        </script>
-    </body>
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/digital-signage/sw.js');
+      }
+    </script>
+  </body>
 </html>
