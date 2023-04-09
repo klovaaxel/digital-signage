@@ -1,8 +1,8 @@
 {
-  "name": "pwa-starter",
+  "name": "digital-signage",
   "version": "0.0.1",
-  "description": "A starter kit for building PWAs!",
-  "homepage": "https://klovaaxel.github.io/digital-signage-fork/",
+  "description": "A simple digital signage software",
+  "homepage": "https://tcstenungsund.github.io/digital-signage-fork/",
   "main": "index.js",
   "scripts": {
     "dev-server": "vite --open",
@@ -15,7 +15,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "author": "",
+  "author": "klovaaxel",
   "license": "ISC",
   "dependencies": {
     "@shoelace-style/shoelace": "^2.0.0-beta.82",
