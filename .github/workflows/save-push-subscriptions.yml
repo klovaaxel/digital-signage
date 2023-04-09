@@ -6,13 +6,13 @@ on:
   repository_dispatch:
 
 env: # Or as an environment variable
-    ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
+  ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
 
 jobs:
   refresh-feed:
     runs-on: ubuntu-latest
     steps:
-      - run: 'curl https://raw.githubusercontent.com/klovaaxel/digital-signage-fork/main/clients/push-subscriptions.bin > data.bin'
+      - run: 'curl https://raw.githubusercontent.com/klovaaxel/digital-signage/main/clients/push-subscriptions.bin > data.bin'
       - run: 'openssl aes-256-cbc -d -a -salt -pass pass:${{ secrets.ENCRYPTION_KEY }} < data.bin > decrypted.bin'
       - run: 'mkdir fetch-api-data-action ; touch push-subscriptions.bin'
       - run: '(cat decrypted.bin ; echo "${{ toJson(github.event.client_payload) }}") | openssl aes-256-cbc -a -pass pass:${{ secrets.ENCRYPTION_KEY }} > fetch-api-data-action/push-subscriptions.bin'
@@ -22,6 +22,6 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          BRANCH: main # Pushes the updates to the master branch.
+          BRANCH: gh-pages # Pushes the updates to the master branch.
           FOLDER: fetch-api-data-action # The location of the data.json file saved by the Fetch API Data action.
           TARGET_FOLDER: clients # Saves the data into the 'data' directory on the master branch.
