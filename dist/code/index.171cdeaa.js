@@ -917,7 +917,11 @@ var zr=Object.defineProperty,Vr=Object.defineProperties;var Wr=Object.getOwnProp
             src="https://docs.google.com/presentation/d/e/2PACX-1vQbS6bGPlyTibcjsUPI1uHspUBsRSv_z_dVast1ZTcZ9Qt_GqXeHU0xWxluPZ2yCL9kftF0frYksy2h/embed?start=true&loop=true&delayms=10000&rm=minimal"
           ></iframe>
           <footer>
-            <img style="filter: invert()" src="assets/images/logo.svg" alt="" />
+            <img
+              style="filter: invert()"
+              src="/digital-signage/assets/images/logo.svg"
+              alt=""
+            />
             <section id="food-schedule" title="Food schedule">
               ${this._foodSchedule.reverse().map(e=>Y`<section>
                     <h3>${e.title}</h3>
@@ -928,7 +932,7 @@ var zr=Object.defineProperty,Vr=Object.defineProperties;var Wr=Object.getOwnProp
           </footer>
         </div>
       </div>
-    `}AddFoodSchedule(e){fetch("../food-schedule/data.json").then(t=>t.json()).then(t=>{const r=t.weeks[0].days;let o=r.filter(i=>new Date(i.date*1e3)>=this._today);o=r;const n=o.slice(0,e).sort((i,s)=>s.date-i.date);for(const i of n){const s=new Date(i.date*1e3).getDay(),d=`${this._weekDays[s-1]} - Vecka ${t.weeks[0].number}`,a=i.items;this._foodSchedule.push({title:d,body:a})}}).catch(console.error)}};ut([Ct()],K.prototype,"_time",2);ut([Ct()],K.prototype,"_weekDays",2);ut([Ct()],K.prototype,"_today",2);ut([Ct()],K.prototype,"_foodSchedule",2);K=ut([ee("general-information")],K);var Mn=Object.defineProperty,Hn=Object.getOwnPropertyDescriptor,In=(e,t,r,o)=>{for(var n=o>1?void 0:o?Hn(t,r):t,i=e.length-1,s;i>=0;i--)(s=e[i])&&(n=(o?s(t,r,n):s(n))||n);return o&&n&&Mn(t,r,n),n};let sr=class extends O{static get styles(){return[te`
+    `}AddFoodSchedule(e){fetch("digital-signage/food-schedule/data.json").then(t=>t.json()).then(t=>{const r=t.weeks[0].days;let o=r.filter(i=>new Date(i.date*1e3)>=this._today);o=r;const n=o.slice(0,e).sort((i,s)=>s.date-i.date);for(const i of n){const s=new Date(i.date*1e3).getDay(),d=`${this._weekDays[s-1]} - Vecka ${t.weeks[0].number}`,a=i.items;this._foodSchedule.push({title:d,body:a})}}).catch(console.error)}};ut([Ct()],K.prototype,"_time",2);ut([Ct()],K.prototype,"_weekDays",2);ut([Ct()],K.prototype,"_today",2);ut([Ct()],K.prototype,"_foodSchedule",2);K=ut([ee("general-information")],K);var Mn=Object.defineProperty,Hn=Object.getOwnPropertyDescriptor,In=(e,t,r,o)=>{for(var n=o>1?void 0:o?Hn(t,r):t,i=e.length-1,s;i>=0;i--)(s=e[i])&&(n=(o?s(t,r,n):s(n))||n);return o&&n&&Mn(t,r,n),n};let sr=class extends O{static get styles(){return[te`
         iframe {
           width: 100%;
           height: 100%;
@@ -946,7 +950,7 @@ var zr=Object.defineProperty,Vr=Object.defineProperties;var Wr=Object.getOwnProp
         src="https://avgangstavla.vasttrafik.se/?source=vasttrafikse-depatureboardlinkgenerator&stopAreaGid=9021014015050000&stopAreaGid=9021014015051000"
         frameborder="0"
       ></iframe>
-    `}};sr=In([ee("public-transport")],sr);var Fn=Object.defineProperty,Bn=Object.getOwnPropertyDescriptor,jn=(e,t,r,o)=>{for(var n=o>1?void 0:o?Bn(t,r):t,i=e.length-1,s;i>=0;i--)(s=e[i])&&(n=(o?s(t,r,n):s(n))||n);return o&&n&&Fn(t,r,n),n};const zn=22>2?"/digital-signage-fork/".slice(1,-1):"/digital-signage-fork/";let ar=class extends O{static get styles(){return te`
+    `}};sr=In([ee("public-transport")],sr);var Fn=Object.defineProperty,Bn=Object.getOwnPropertyDescriptor,jn=(e,t,r,o)=>{for(var n=o>1?void 0:o?Bn(t,r):t,i=e.length-1,s;i>=0;i--)(s=e[i])&&(n=(o?s(t,r,n):s(n))||n);return o&&n&&Fn(t,r,n),n};const zn=17>2?"/digital-signage/".slice(1,-1):"/digital-signage/";let ar=class extends O{static get styles(){return te`
       main {
         display: block;
         width: 100dvw;
@@ -954,4 +958,4 @@ var zr=Object.defineProperty,Vr=Object.defineProperties;var Wr=Object.getOwnProp
         overflow: hidden;
       }
     `}constructor(){super()}firstUpdated(){var t;new P((t=this.shadowRoot)==null?void 0:t.querySelector("#routerOutlet")).setRoutes([{path:zn,animate:!0,children:[{path:"",component:"general-information"},{path:"public-transport",component:"public-transport"}]}])}render(){return Y` <main id="routerOutlet"></main> `}};ar=jn([ee("app-index")],ar);
-//# sourceMappingURL=index.e577f630.js.map
+//# sourceMappingURL=index.171cdeaa.js.map

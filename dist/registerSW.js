@@ -1,1 +1,1 @@
-if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/digital-signage-fork/sw.js', { scope: '/digital-signage-fork/' })})}
+if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/digital-signage/sw.js', { scope: '/digital-signage/' })})}
