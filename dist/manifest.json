@@ -1,14 +1,14 @@
 {
   "id": "/",
   "scope": "/",
-  "name": "PWA Starter",
+  "name": "Digital signage",
   "display": "standalone",
   "start_url": "/",
-  "short_name": "starter",
-  "theme_color": "#E1477E",
-  "description": "This is a PWA Starter app",
+  "short_name": "Signage",
+  "theme_color": "#000",
+  "description": "This is a simple digital signage app",
   "orientation": "any",
-  "background_color": "#E1477E",
+  "background_color": "#000",
   "related_applications": [],
   "prefer_related_applications": false,
   "display_override": ["window-controls-overlay"],
@@ -41,14 +41,8 @@
       "type": "image/png"
     }
   ],
-  "features": [
-    "Cross Platform",
-    "fast",
-    "simple"
-  ],
-  "categories": [
-    "social"
-  ],
+  "features": ["Cross Platform", "fast", "simple"],
+  "categories": ["social"],
   "shortcuts": [
     {
       "name": "Open About",
