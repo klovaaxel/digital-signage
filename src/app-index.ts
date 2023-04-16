@@ -1,15 +1,24 @@
 import { LitElement, css, html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { Router } from '@vaadin/router';
+// import { getFirestore } from 'firebase/firestore';
+// import { doc, updateDoc, arrayUnion } from 'firebase/firestore';
 
 import './pages/general-information';
 import './pages/public-transport';
+import './pages/login';
 import './styles/global.css';
 
 const BASE_URL: string =
   import.meta.env.BASE_URL.length > 2
     ? import.meta.env.BASE_URL.slice(1, -1)
     : import.meta.env.BASE_URL;
+
+// const db = getFirestore(app);
+// const pushsubdb = doc(db, 'nosnas', 'push-subcriptions');
+// await updateDoc(pushsubdb, {
+//   subscriptions: arrayUnion('test'),
+// });
 
 @customElement('app-index')
 export class AppIndex extends LitElement {
@@ -42,6 +51,7 @@ export class AppIndex extends LitElement {
         children: [
           { path: '', component: 'general-information' },
           { path: 'public-transport', component: 'public-transport' },
+          { path: 'login', component: 'login-component' },
         ],
       } as any,
     ]);

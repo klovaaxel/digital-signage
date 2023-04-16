@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>PWA Starter</title>
+    <title>Digital signage</title>
 
     <base href="/" />
 
@@ -11,26 +11,17 @@
       name="viewport"
       content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
     />
-    <meta name="description" content="This is a PWA Starter app" />
+    <meta name="description" content="This is a simple digital signage app" />
 
-    <meta
-      name="theme-color"
-      media="(prefers-color-scheme: dark)"
-      content="#181818"
-    />
-    <meta
-      name="theme-color"
-      media="(prefers-color-scheme: light)"
-      content="#f3f3f3"
-    />
+    <meta name="theme-color" content="#000" />
 
     <!-- These meta tags are Apple-specific, and set the web application to run in full-screen mode with a black status bar. Learn more at https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html-->
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-title" content="PWA Starter" />
+    <meta name="apple-mobile-web-app-title" content="Digital signage" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
     <!-- This tag is used by the PWA Starter CLI to identify template projects. Don't remove if you are using the CLI. -->
-    <meta name="pwa-starter-template-identity" content="pwa-starter" />
+    <meta name="pwa-starter-template-identity" content="Digital signage" />
 
     <!-- Imports an icon to represent the document. -->
     <link rel="icon" href="/assets/icons/icon_24.png" type="image/x-icon" />
@@ -57,6 +48,7 @@
   <body>
     <!-- Our app-index web component. This component is defined in src/pages/app-index.ts-->
     <app-index></app-index>
+    <section id="firebaseui-auth-container"></section>
 
     <script>
       if ('serviceWorker' in navigator) {
@@ -69,37 +61,47 @@
 
       function checkKeyPressed(evt) {
         if (evt.keyCode == '80') {
-          localStorage.setItem('githubToken', prompt('Github access token:'));
+          const token = prompt('Github access token:');
+          console.log(token);
+          localStorage.setItem('githubToken', token);
         }
       }
     </script>
 
     <script>
       navigator.serviceWorker.ready.then((sw) => {
-        sw.pushManager
-          .subscribe({
-            userVisibleOnly: true,
-            applicationServerKey:
-              'BPGKSvCq-j6wFMwWcxvy0zMG-2Qd6NrBdRxCc8KOsJiqSuWJdgB8fz19MQ37_eGYBmOW1_YJCwAAidDjrEHIAps',
-          })
-          .then((push) => {
-            if (localStorage.getItem('githubToken')) {
-              fetch(
-                'https://api.github.com/repos/klovaaxel/digital-signage/dispatches',
-                {
-                  body: `{"event_type": "Save push subscriptions 📫", "client_payload": ${push}}`,
-                  headers: {
-                    'Accept': 'application/vnd.github.everest-preview+json',
-                    'Authorization': `token ${localStorage.getItem(
-                      'githubToken'
-                    )}`,
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                  },
-                  method: 'POST',
+        sw.pushManager.getSubscription().then((sub) => {
+          if (sub == null) {
+            sw.pushManager
+              .subscribe({
+                userVisibleOnly: true,
+                applicationServerKey:
+                  'BFtjXM3RoK3MGk3HrvhfAZ-diGpHqc30rfJdn9pfiwRBCmArpyAy6As5000wzjQ2CI2aFYZ5srMJUGDclcNGbyo',
+              })
+              .then((push) => {
+                console.log(JSON.stringify(push));
+
+                if (localStorage.getItem('githubToken') != null) {
+                  fetch(
+                    'https://api.github.com/repos/klovaaxel/digital-signage/dispatches',
+                    {
+                      body: `{"event_type": "Save push subscriptions 📫", "client_payload": ${JSON.stringify(
+                        push
+                      )}}`,
+                      headers: {
+                        'Accept': 'application/vnd.github.everest-preview+json',
+                        'Authorization': `token ${localStorage.getItem(
+                          'githubToken'
+                        )}`,
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                      },
+                      method: 'POST',
+                    }
+                  );
                 }
-              );
-            }
-          });
+              });
+          }
+        });
       });
 
       navigator.serviceWorker.addEventListener('message', function (e) {
